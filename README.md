@@ -4,6 +4,12 @@ TypeScript SDK for the Qwant Answers API (`POST /v2/answer`).
 
 Handles fetch, SSE parsing, partial-chunk buffering, event routing, and stream cancellation.
 
+## Playground
+
+A live, browser-based playground is available at **[qwant.github.io/playground-answer-V2](https://qwant.github.io/playground-answer-V2/)** — streaming chat, source cards, multi-turn conversations, dark mode.
+
+Source code: [github.com/Qwant/playground-answer-V2](https://github.com/Qwant/playground-answer-V2)
+
 ## Requirements
 
 - Node.js ≥ 18
