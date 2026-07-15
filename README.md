@@ -50,7 +50,6 @@ const stream = client.stream({
   query: 'MacBook Neo',
   filter: 'frandroid.com',
   markdown: true,
-  style: 'editorial',
   language: 'fr',
 });
 
@@ -113,7 +112,6 @@ Returns a `StreamHandle`:
 | `sources` | `{ sources: AnswerV2Source[] }` |
 | `assistant` | `{ delta: string }` |
 | `citation` | `{ reference_ids: number[] }` |
-| `usages` | `{ usages: AnswerV2UsageEntry[] }` |
 | `related` | `{ related_queries: string[] }` |
 | `done` | `{ finish_reason: string }` |
 

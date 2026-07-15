@@ -17,7 +17,6 @@ const stream = client.stream({
   filter: 'frandroid.com',
   markdown: true,
   related_queries: true,
-  style: 'editorial',
   language: 'fr',
 });
 
@@ -39,11 +38,6 @@ try {
         break;
       case 'related':
         console.error('\n[related]', event.related_queries.join(' | '));
-        break;
-      case 'usages':
-        for (const u of event.usages) {
-          console.error(`\n[usage] ${u.step} — in: ${u.input_tokens}, out: ${u.output_tokens}`);
-        }
         break;
       case 'done':
         console.error(`\n[done] finish_reason: ${event.finish_reason}`);
