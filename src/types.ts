@@ -3,23 +3,21 @@
 export type AnswerV2Input = {
   /** User question (required). */
   query: string;
-  /** Domain filter for search — e.g. `'www.example.com'`. */
+  /** Canonical domain filter for search, without www or URL scheme — e.g. `'example.com'`. */
   filter?: string;
   /** Conversation history (max 20 messages). */
   history?: Array<{ role: 'user' | 'assistant'; content: string }>;
   /** Response length. Default: `'short'`. */
   mode?: 'short' | 'long';
-  /** Answer style. Default: `'editorial'`. Currently only `'editorial'` is supported. */
-  style?: 'editorial';
-  /** Answer language. MVP: French only. Default: `'fr'`. */
-  language?: 'fr';
+  /** Answer language. Default: `'fr'`. */
+  language?: 'fr' | 'en';
   /** Whether the response uses Markdown formatting. Default: `false`. */
   markdown?: boolean;
   /** Whether to generate related follow-up questions. Default: `false`. */
   related_queries?: boolean;
   /** Whether to rewrite the query before search. Default: `true`. */
   query_rewrite?: boolean;
-  /** Caller-supplied sources — bypasses Bloom search when provided. Max 20. */
+  /** Caller-supplied sources — bypasses Bloom search when provided. Max 10. */
   sources?: Array<{ url?: string; content?: string; title?: string }>;
   /** How to handle caller-supplied sources. Default: `'search'`. */
   sources_mode?: 'search' | 'context';
@@ -48,11 +46,9 @@ export type AnswerV2Result = {
   request_id: string;
   answer: string;
   citations: AnswerV2Citation[];
-  finish_reason: string;
   related_queries: string[];
   sources: AnswerV2Source[];
   usages: AnswerV2UsageEntry[];
-  generation_ms: number;
 };
 
 // ─── Stream events ────────────────────────────────────────────────────────────
@@ -61,7 +57,6 @@ export type AnswerV2Event =
   | { type: 'sources'; sources: AnswerV2Source[] }
   | { type: 'assistant'; delta: string }
   | { type: 'citation'; reference_ids: number[] }
-  | { type: 'usages'; usages: AnswerV2UsageEntry[] }
   | { type: 'related'; related_queries: string[] }
   | { type: 'done'; finish_reason: string };
 

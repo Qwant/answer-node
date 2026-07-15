@@ -18,7 +18,6 @@ try {
     filter: 'frandroid.com',
     markdown: true,
     related_queries: true,
-    style: 'editorial',
     language: 'fr',
   });
 
@@ -40,7 +39,6 @@ try {
       console.log(`  [${u.step}] in: ${u.input_tokens}, out: ${u.output_tokens}`);
     }
   }
-  console.log(`\ngeneration_ms: ${result.generation_ms}`);
 } catch (err) {
   if (err instanceof AnswerApiError) {
     console.error(`API error ${err.status}:`, err.body);

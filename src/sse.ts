@@ -1,4 +1,4 @@
-import type { AnswerV2Event, AnswerV2Source, AnswerV2UsageEntry } from './types.js';
+import type { AnswerV2Event, AnswerV2Source } from './types.js';
 import { AnswerNetworkError } from './errors.js';
 
 // ─── SSE block parser ─────────────────────────────────────────────────────────
@@ -38,8 +38,6 @@ export function mapSseEvent(name: string, data: unknown): AnswerV2Event | null {
         type: 'citation',
         reference_ids: (data as { reference_ids: number[] }).reference_ids,
       };
-    case 'usages':
-      return { type: 'usages', usages: data as AnswerV2UsageEntry[] };
     case 'related':
       return {
         type: 'related',

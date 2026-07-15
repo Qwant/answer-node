@@ -49,18 +49,16 @@ const MOCK_RESULT: AnswerV2Result = {
   request_id: 'req_42',
   answer: 'Paris is the capital of France.',
   citations: [{ position: 0, source_id: 'src_1' }],
-  finish_reason: 'stop',
   related_queries: ['What is the population of Paris?'],
   sources: [{ id: 'src_1', url: 'https://example.com', title: 'Example' }],
   usages: [{ step: 'answer', input_tokens: 10, output_tokens: 20 }],
-  generation_ms: 350,
 };
 
 const STREAM_CHUNKS = [
   sseChunk('sources', [{ id: 'src_1', url: 'https://example.com', title: 'Example' }]),
   sseChunk('assistant', 'Paris'),
   sseChunk('citation', { reference_ids: [1] }),
-  sseChunk('usages', [{ step: 'answer', input_tokens: 10, output_tokens: 20 }]),
+  sseChunk('related', { related_queries: ['What is the population of Paris?'] }),
   sseChunk('done', { finish_reason: 'stop' }),
 ];
 
@@ -176,7 +174,10 @@ describe('AnswerClient.stream()', () => {
     expect(events[0]).toMatchObject({ type: 'sources' });
     expect(events[1]).toEqual({ type: 'assistant', delta: 'Paris' });
     expect(events[2]).toEqual({ type: 'citation', reference_ids: [1] });
-    expect(events[3]).toMatchObject({ type: 'usages' });
+    expect(events[3]).toEqual({
+      type: 'related',
+      related_queries: ['What is the population of Paris?'],
+    });
     expect(events[4]).toEqual({ type: 'done', finish_reason: 'stop' });
   });
 
@@ -199,7 +200,7 @@ describe('AnswerClient.stream()', () => {
     }
 
     expect(callbackEvents).toEqual(forAwaitEvents);
-    expect(callbackEvents).toEqual(['sources', 'assistant', 'citation', 'usages', 'done']);
+    expect(callbackEvents).toEqual(['sources', 'assistant', 'citation', 'related', 'done']);
   });
 
   it('onEvent() unsubscribe prevents further callbacks', async () => {
