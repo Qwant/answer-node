@@ -56,5 +56,13 @@
     "sse",
     "streaming"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Qwant/answer-node.git"
+  },
+  "homepage": "https://github.com/Qwant/answer-node#readme",
+  "bugs": {
+    "url": "https://github.com/Qwant/answer-node/issues"
+  },
   "license": "MIT"
 }
